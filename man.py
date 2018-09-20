@@ -11,21 +11,35 @@ class PlayerMan(pygame.sprite.Sprite):
 
         self.image = pygame.image.load("playerman/walkr2.png").convert_alpha()
         self.image = pygame.transform.scale(self.image, (width,height))
-        self.hp = 100
         self.speed = 0
         self.verspeed = 0
 
         self.rect = self.image.get_rect()
         self.mask = pygame.mask.from_surface(self.image)
 
-    def moveRight(self, pixels):
-        self.rect.x += pixels
-    def moveLeft(self, pixels):
-        self.rect.x -= pixels
     def move(self):
         self.rect.x += self.verspeed
     def fall(self, change):
-        self.speed = self.speed + change
+        self.speed += change
+        self.rect.y += self.speed
+
+class EnemyMan(pygame.sprite.Sprite):
+
+    def __init__(self, width, height):
+
+        super().__init__()
+
+        self.image = pygame.image.load("playerman/enemy.png").convert_alpha()
+        self.image = pygame.transform.scale(self.image, (width,height))
+        self.speed = 0
+        self.verspeed = 0
+
+        self.rect = self.image.get_rect()
+
+    def move(self):
+        self.rect.x += self.verspeed
+    def fall(self, change):
+        self.speed += change
         self.rect.y += self.speed
 
 class Floor(pygame.sprite.Sprite):
